@@ -1,0 +1,77 @@
+body
+{
+    background-color: rgb(33, 6, 151);
+    color: #fff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/*Arreglo div contenedor, vh unidad altura. vw unidad anchura*/
+.contenedor-gamer
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 100vh;
+    width: 100vw;
+}
+
+/*Diseño del cuadro canvas, donde va el juego*/
+canvas
+{
+  border: 4px solid #ff6600;
+  border-radius: 8px;
+  background-color: #feff9d;
+}
+
+/*Diseño de los botones de la clase div*/
+.botones
+{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/*Diseño botones*/
+button
+{
+    background-color: #b5b04d;
+    border-radius: 8px;
+    border-color: #c38a64;
+    font-family: inherit;
+    margin: 0;
+    padding: 5px 20px;
+    width: 100px;
+}
+button:not(:last-child)
+{
+    margin-right: 10px;
+}
+
+/*Diseño cuadro menssage*/
+.mensajes
+{
+   display: flex;
+   flex-wrap: wrap;
+   margin: 0 auto;
+   width: 80%;
+   max-width: 460px;
+}
+
+/*Diseño del texto parrafo*/
+p
+{
+  display: block;
+  margin: 0;
+  width: 100%;
+}
+
+@media (max-width: 440px)
+{
+    button { margin-top: 25px; }
+    #up, #down { margin-left: 100%; margin-right: 100%; }
+}
