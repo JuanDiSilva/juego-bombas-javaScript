@@ -12,6 +12,12 @@ const botonAbajo = document.querySelector('#down');
 let canvasSize;
 let elementosSize;
 
+//Creacion constantes posicion usuario
+const jugadorPosicion = {
+  x: undefined,
+  y: undefined,
+};
+
 //Carga de la ventana canvas, inicio juego
 window.addEventListener('load', colocarCanvasTamanio);
 window.addEventListener('resize', colocarCanvasTamanio);
@@ -44,7 +50,7 @@ function inicioGame()
     game.textAlign = 'end';
 
     //Creacion array del mapa
-    const map = maps[2];
+    const map = maps[0];
     console.log(map);
     //.trim elimina espacios al string al comienzo y final, .split divide el string en arrays
     const mapFilas = map.trim().split('\n');
@@ -59,9 +65,24 @@ function inicioGame()
             const emoji = emojis[col];
             const posX  = elementosSize * (columnaI + 1);
             const posY  = elementosSize * (filaI + 1);
+            
+            if(col == 'O')
+            {
+                jugadorPosicion.x = posX;
+                jugadorPosicion.y = posY;
+                console.log({jugadorPosicion});
+            }
+              
             game.fillText(emoji, posX, posY);
         });
     });
+    movJugador();
+}
+
+//Funcion movimiento del jugador
+function movJugador()
+{
+    game.fillText(emojis['PLAYER'], jugadorPosicion.x, jugadorPosicion.y);
 }
 
 //Bloque movimiento por teclas y botones html
