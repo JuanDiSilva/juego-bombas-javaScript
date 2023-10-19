@@ -39,7 +39,7 @@ function inicioGame()
     game.textAlign = 'end';
 
     //Creacion array del mapa
-    const map = maps[0];
+    const map = maps[2];
     console.log(map);
     //.trim elimina espacios al string al comienzo y final, .split divide el string en arrays
     const mapFilas = map.trim().split('\n');
@@ -47,12 +47,14 @@ function inicioGame()
     const mapFilaCols = mapFilas.map(row => row.trim().split(''));
     console.log({map, mapFilas, mapFilaCols});
 
-    for(let fila = 1; fila <= 10; fila++)
-    {
-        for(let columna =1; columna<=10; columna++)
-        {
-          //Se coloca +(lementosSize/5) y -(elementosSize/5) para que se adapte a cualquier pantalla
-          game.fillText(emojis[mapFilaCols[fila-1][columna-1]], elementosSize * columna, elementosSize * fila);
-        }
-    }
+    //Creacion ciclo forEach para recorrer el array, .fillText permite dibujar en el canvas
+    // +1, es porque en canvas los emojis empiezan en 0
+    mapFilaCols.forEach((row, filaI) => {
+        row.forEach((col, columnaI) => {
+            const emoji = emojis[col];
+            const posX  = elementosSize * (columnaI + 1);
+            const posY  = elementosSize * (filaI + 1);
+            game.fillText(emoji, posX, posY);
+        });
+    });
 }
