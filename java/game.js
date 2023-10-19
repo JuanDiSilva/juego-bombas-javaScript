@@ -1,6 +1,11 @@
 //Se selecciona la etiqueta canvas del html.
 const canvas = document.querySelector('#game');
 const game = canvas.getContext('2d');
+//Se seleccionan los botones de html
+const botonArriba = document.querySelector('#up');
+const botonIzquierda = document.querySelector('#left');
+const botonDerecha = document.querySelector('#right');
+const botonAbajo = document.querySelector('#down');
 
 //Constantes let scope
 //Se define una variables let para el tamaño de canvas, size
@@ -57,4 +62,37 @@ function inicioGame()
             game.fillText(emoji, posX, posY);
         });
     });
+}
+
+//Bloque movimiento por teclas y botones html
+//Al pulsar las teclas
+window.addEventListener('keydown', movePorTeclas);
+botonArriba.addEventListener('click', moveArriva);
+botonIzquierda.addEventListener('click', moverIzquierda);
+botonDerecha.addEventListener('click', moverDerecha);
+botonAbajo.addEventListener('click', moverAbajo);
+
+function movePorTeclas(event)
+{
+    if(event.key == "ArrowUp") moveArriva();
+    else if(event.key == "ArrowLeft") moverIzquierda();
+    else if(event.key == "ArrowRight") moverDerecha();
+    else if(event.key == "ArrowDown") moverAbajo();
+}
+
+function moveArriva()
+{
+    console.log("Me quiero mover hacia arriba");
+}
+function moverIzquierda()
+{
+    console.log("Me quiero mover hacia la izquierda");
+}
+function moverDerecha()
+{
+    console.log("Me quiero mover hacia la derecha");
+}
+function moverAbajo()
+{
+    console.log("Me quiero mover abajo");
 }
