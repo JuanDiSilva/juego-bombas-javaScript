@@ -110,28 +110,53 @@ function movePorTeclas(event)
 function moveArriva()
 {
     console.log("Me quiero mover hacia arriba");
-    //-= contador decendente jugadorPosicion.y = jugadorPosicion - elementosSize
-    jugadorPosicion.y -= elementosSize
-    inicioGame();
+    if ((jugadorPosicion.y - elementosSize) < elementosSize) 
+    {
+        console.log('ESTA AFUERA');
+    }
+    else
+    {
+       //-= contador decendente jugadorPosicion.y = jugadorPosicion - elementosSize
+       jugadorPosicion.y -= elementosSize;
+       inicioGame();   
+    }
 }
 function moverIzquierda()
 {
     console.log("Me quiero mover hacia la izquierda");
-    jugadorPosicion.x -= elementosSize
-    inicioGame();
-
+    if ((jugadorPosicion.x - elementosSize) < elementosSize)
+    {
+      console.log('ESTA AFUERA');
+    }
+    else
+    {
+      jugadorPosicion.x -= elementosSize;
+      inicioGame();
+    }
 }
 function moverDerecha()
 {
     console.log("Me quiero mover hacia la derecha");
-    jugadorPosicion.x += elementosSize
-    inicioGame();
-
+    if ((jugadorPosicion.x + elementosSize) > canvasSize)
+    {
+      console.log('ESTA AFUERA');   
+    }
+    else
+    {
+       jugadorPosicion.x += elementosSize;
+       inicioGame();
+    }
 }
 function moverAbajo()
 {
     console.log("Me quiero mover abajo");
-    jugadorPosicion.y += elementosSize
-    inicioGame();
-
+    if ((jugadorPosicion.y + elementosSize) > canvasSize)
+    {
+      console.log("ESTA AFUERA");    
+    }
+    else
+    {
+      jugadorPosicion.y += elementosSize;
+      inicioGame();
+    }
 }
