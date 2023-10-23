@@ -36,6 +36,7 @@ function colocarCanvasTamanio()
     //Atribotos de la anchura y altura
     canvas.setAttribute('width',canvasSize)
     canvas.setAttribute('height',canvasSize)
+
     //Se define el bloque para los pixelees de cada emoji, elementos tamaño
     elementosSize = canvasSize / 10;
 
@@ -50,7 +51,7 @@ function inicioGame()
     game.textAlign = 'end';
 
     //Creacion array del mapa
-    const map = maps[0];
+    const map = maps[1];
     console.log(map);
     //.trim elimina espacios al string al comienzo y final, .split divide el string en arrays
     const mapFilas = map.trim().split('\n');
@@ -68,9 +69,14 @@ function inicioGame()
             
             if(col == 'O')
             {
+              //Si la posicion en x y la posicion en Y estan definidas entra al siguiente ciclo if
+              if (!jugadorPosicion.x && !jugadorPosicion.y)
+              {
                 jugadorPosicion.x = posX;
                 jugadorPosicion.y = posY;
                 console.log({jugadorPosicion});
+                
+              }
             }
               
             game.fillText(emoji, posX, posY);
@@ -104,16 +110,28 @@ function movePorTeclas(event)
 function moveArriva()
 {
     console.log("Me quiero mover hacia arriba");
+    //-= contador decendente jugadorPosicion.y = jugadorPosicion - elementosSize
+    jugadorPosicion.y -= elementosSize
+    inicioGame();
 }
 function moverIzquierda()
 {
     console.log("Me quiero mover hacia la izquierda");
+    jugadorPosicion.x -= elementosSize
+    inicioGame();
+
 }
 function moverDerecha()
 {
     console.log("Me quiero mover hacia la derecha");
+    jugadorPosicion.x += elementosSize
+    inicioGame();
+
 }
 function moverAbajo()
 {
     console.log("Me quiero mover abajo");
+    jugadorPosicion.y += elementosSize
+    inicioGame();
+
 }
