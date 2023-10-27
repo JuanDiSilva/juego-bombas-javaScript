@@ -18,6 +18,12 @@ const jugadorPosicion = {
   y: undefined,
 };
 
+//Creacion de la posicion del regalo
+const regaloPosicion = {
+    x: undefined,
+    y: undefined,
+};
+
 //Carga de la ventana canvas, inicio juego
 window.addEventListener('load', colocarCanvasTamanio);
 window.addEventListener('resize', colocarCanvasTamanio);
@@ -53,11 +59,19 @@ function inicioGame()
     //Creacion array del mapa
     const map = maps[1];
     console.log(map);
+
     //.trim elimina espacios al string al comienzo y final, .split divide el string en arrays
     const mapFilas = map.trim().split('\n');
+
     //Se crea un string para cada fila de arreglos, map crea un nuevo array
     const mapFilaCols = mapFilas.map(row => row.trim().split(''));
     console.log({map, mapFilas, mapFilaCols});
+
+    //Definicion de los enemigos
+    enemigoPosicion = [];
+
+    //Para que no se muestre toda la calabera
+    game.clearRect(0,0, canvasSize, canvasSize);
 
     //Creacion ciclo forEach para recorrer el array, .fillText permite dibujar en el canvas
     // +1, es porque en canvas los emojis empiezan en 0
@@ -78,6 +92,18 @@ function inicioGame()
                 
               }
             }
+            else if(col == 'I')
+            {
+              regaloPosicion.x = posX;
+              regaloPosicion.y = posY;
+            }
+            else if(col == 'X')
+            {
+              enemigoPosicion.push({
+                x: posX,
+                y:posY,
+              });
+            }
               
             game.fillText(emoji, posX, posY);
         });
@@ -88,6 +114,25 @@ function inicioGame()
 //Funcion movimiento del jugador
 function movJugador()
 {
+    //Cuando hay colision con el regalo
+    const regaloColisionX = jugadorPosicion.x.toFixed(3) == regaloPosicion.x.toFixed(3);
+    const regaloColisionY = jugadorPosicion.y.toFixed(3) == regaloPosicion.y.toFixed(3);
+    const regaloColision = regaloColisionX && regaloColisionY;
+    if(regaloColision)
+    {
+        console.log("SIGUIENTE NIVEL");
+    }
+
+    //Creacion de la funcion colision
+    const enemigoCollision = enemigoPosicion.find(enemy => {
+        const enemigoColisionX = enemy.x.toFixed(3) == jugadorPosicion.x.toFixed(3);
+        const enemigoColisionY = enemy.y.toFixed(3) == jugadorPosicion.y.toFixed(3);
+        return enemigoColisionX && enemigoColisionY;
+    });
+    if(enemigoCollision)
+    {
+        console.log('Chocaste contra el nemigo :(');
+    }
     game.fillText(emojis['PLAYER'], jugadorPosicion.x, jugadorPosicion.y);
 }
 
