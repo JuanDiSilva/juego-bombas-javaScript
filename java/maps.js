@@ -33,6 +33,7 @@ maps.push(`
   X--XXXXXXX
   XX----XXXX
   X--XX-XXXX
+  X-XXX--XXX
   X-XXXX-XXX
   XX--XX--XX
   XX--XXX-XX

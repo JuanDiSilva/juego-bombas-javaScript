@@ -12,6 +12,7 @@ const botonAbajo = document.querySelector('#down');
 let canvasSize;
 let elementosSize;
 let nivel = 0;
+let vidas = 3;
 
 //Creacion constantes posicion usuario
 const jugadorPosicion = {
@@ -138,10 +139,10 @@ function movJugador()
         const enemigoColisionY = enemy.y.toFixed(3) == jugadorPosicion.y.toFixed(3);
         return enemigoColisionX && enemigoColisionY;
     });
-    
+
     if(enemigoCollision)
     {
-        console.log('Chocaste contra el nemigo :(');
+        nivelFallido();
     }
     game.fillText(emojis['PLAYER'], jugadorPosicion.x, jugadorPosicion.y);
 }
@@ -150,6 +151,24 @@ function nivelGanado()
 {
     console.log('Subiste de nivel');
     nivel++;
+    inicioGame();
+}
+//Funcion nivel Fallido
+function nivelFallido()
+{
+    console.log("CHOCO CON UN ENEMIGO :(");
+    vidas--;
+
+    console.log("Vidas: " + vidas);
+
+    if(vidas <= 0)
+    {
+       nivel = 0;
+       vidas = 3;
+    }
+
+    jugadorPosicion.x = undefined;
+    jugadorPosicion.y = undefined;
     inicioGame();
 }
 //Funcion ganar el juego
