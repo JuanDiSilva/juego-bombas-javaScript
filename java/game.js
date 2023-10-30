@@ -11,6 +11,7 @@ const botonAbajo = document.querySelector('#down');
 //Se define una variables let para el tamaño de canvas, size
 let canvasSize;
 let elementosSize;
+let nivel = 0;
 
 //Creacion constantes posicion usuario
 const jugadorPosicion = {
@@ -23,6 +24,9 @@ const regaloPosicion = {
     x: undefined,
     y: undefined,
 };
+
+//Creacion array posicion enemigo
+let enemigoPosicion = [];
 
 //Carga de la ventana canvas, inicio juego
 window.addEventListener('load', colocarCanvasTamanio);
@@ -57,8 +61,13 @@ function inicioGame()
     game.textAlign = 'end';
 
     //Creacion array del mapa
-    const map = maps[1];
-    console.log(map);
+    const map = maps[nivel];
+    //Si la condicion es verdadera
+    if(!map)
+    {
+      juegoGanado();
+      return;
+    }
 
     //.trim elimina espacios al string al comienzo y final, .split divide el string en arrays
     const mapFilas = map.trim().split('\n');
@@ -67,7 +76,7 @@ function inicioGame()
     const mapFilaCols = mapFilas.map(row => row.trim().split(''));
     console.log({map, mapFilas, mapFilaCols});
 
-    //Definicion de los enemigos
+    //Definicion array de los enemigos
     enemigoPosicion = [];
 
     //Para que no se muestre toda la calabera
@@ -88,8 +97,7 @@ function inicioGame()
               {
                 jugadorPosicion.x = posX;
                 jugadorPosicion.y = posY;
-                console.log({jugadorPosicion});
-                
+                console.log({jugadorPosicion}); 
               }
             }
             else if(col == 'I')
@@ -118,9 +126,10 @@ function movJugador()
     const regaloColisionX = jugadorPosicion.x.toFixed(3) == regaloPosicion.x.toFixed(3);
     const regaloColisionY = jugadorPosicion.y.toFixed(3) == regaloPosicion.y.toFixed(3);
     const regaloColision = regaloColisionX && regaloColisionY;
+
     if(regaloColision)
     {
-        console.log("SIGUIENTE NIVEL");
+        nivelGanado();
     }
 
     //Creacion de la funcion colision
@@ -129,13 +138,25 @@ function movJugador()
         const enemigoColisionY = enemy.y.toFixed(3) == jugadorPosicion.y.toFixed(3);
         return enemigoColisionX && enemigoColisionY;
     });
+    
     if(enemigoCollision)
     {
         console.log('Chocaste contra el nemigo :(');
     }
     game.fillText(emojis['PLAYER'], jugadorPosicion.x, jugadorPosicion.y);
 }
-
+//Funcion Juego Ganado
+function nivelGanado()
+{
+    console.log('Subiste de nivel');
+    nivel++;
+    inicioGame();
+}
+//Funcion ganar el juego
+function juegoGanado()
+{
+    console.log('!GAME OVER');
+}
 //Bloque movimiento por teclas y botones html
 //Al pulsar las teclas
 window.addEventListener('keydown', movePorTeclas);
