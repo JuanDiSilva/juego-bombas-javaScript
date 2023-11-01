@@ -6,6 +6,7 @@ const botonArriba = document.querySelector('#up');
 const botonIzquierda = document.querySelector('#left');
 const botonDerecha = document.querySelector('#right');
 const botonAbajo = document.querySelector('#down');
+const spanLives = document.querySelector('#vidas');
 
 //Constantes let scope
 //Se define una variables let para el tamaño de canvas, size
@@ -76,7 +77,8 @@ function inicioGame()
     //Se crea un string para cada fila de arreglos, map crea un nuevo array
     const mapFilaCols = mapFilas.map(row => row.trim().split(''));
     console.log({map, mapFilas, mapFilaCols});
-
+    //Se llama la funcion mostrar vidas
+    mostrarVidas();
     //Definicion array de los enemigos
     enemigoPosicion = [];
 
@@ -175,6 +177,13 @@ function nivelFallido()
 function juegoGanado()
 {
     console.log('!GAME OVER');
+}
+//Funcion para mostrar el numero de vidas
+function mostrarVidas()
+{
+    const heartsArray = Array(vidas).fill(emojis['HEART']);
+    spanLives.innerHTML = "";
+    heartsArray.forEach(heart => spanLives.append(heart));
 }
 //Bloque movimiento por teclas y botones html
 //Al pulsar las teclas
