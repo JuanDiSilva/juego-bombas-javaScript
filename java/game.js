@@ -7,6 +7,7 @@ const botonIzquierda = document.querySelector('#left');
 const botonDerecha = document.querySelector('#right');
 const botonAbajo = document.querySelector('#down');
 const spanLives = document.querySelector('#vidas');
+const spanTime = document.querySelector('#time');
 
 //Constantes let scope
 //Se define una variables let para el tamaño de canvas, size
@@ -14,6 +15,10 @@ let canvasSize;
 let elementosSize;
 let nivel = 0;
 let vidas = 3;
+
+let tiempoInicio;
+let timepoJugador;
+let tiempoIntervalo;
 
 //Creacion constantes posicion usuario
 const jugadorPosicion = {
@@ -70,7 +75,14 @@ function inicioGame()
       juegoGanado();
       return;
     }
-
+    
+    if(!tiempoInicio)
+    {
+        //Date.now() devuelve el numero de miliseguendos entre 00
+        tiempoInicio = Date.now();
+        console.log("tiempo:" + tiempoInicio);
+        tiempoIntervalo = setInterval(mostrarTiempo, 100);
+    }
     //.trim elimina espacios al string al comienzo y final, .split divide el string en arrays
     const mapFilas = map.trim().split('\n');
 
@@ -167,6 +179,7 @@ function nivelFallido()
     {
        nivel = 0;
        vidas = 3;
+       tiempoInicio = undefined;
     }
 
     jugadorPosicion.x = undefined;
@@ -177,6 +190,7 @@ function nivelFallido()
 function juegoGanado()
 {
     console.log('!GAME OVER');
+    clearInterval(tiempoIntervalo);
 }
 //Funcion para mostrar el numero de vidas
 function mostrarVidas()
@@ -184,6 +198,11 @@ function mostrarVidas()
     const heartsArray = Array(vidas).fill(emojis['HEART']);
     spanLives.innerHTML = "";
     heartsArray.forEach(heart => spanLives.append(heart));
+}
+//Funcion para mostar el tiempo en pantalla
+function mostrarTiempo()
+{
+    spanTime.innerHTML = Date.now() - tiempoInicio;
 }
 //Bloque movimiento por teclas y botones html
 //Al pulsar las teclas
