@@ -229,6 +229,13 @@ function mostrarVidas()
     const heartsArray = Array(vidas).fill(emojis['HEART']);
     spanLives.innerHTML = "";
     heartsArray.forEach(heart => spanLives.append(heart));
+    if(vidas <= 0)
+    {
+        const reload = () => {
+            location.reload();
+          };
+        reload();
+    }
 }
 //Funcion para mostar el tiempo en pantalla
 function mostrarTiempo()
