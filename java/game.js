@@ -8,6 +8,8 @@ const botonDerecha = document.querySelector('#right');
 const botonAbajo = document.querySelector('#down');
 const spanLives = document.querySelector('#vidas');
 const spanTime = document.querySelector('#time');
+const spanRecord = document.querySelector('#record');
+const pResultado = document.querySelector('#resultado');
 
 //Constantes let scope
 //Se define una variables let para el tamaño de canvas, size
@@ -82,6 +84,7 @@ function inicioGame()
         tiempoInicio = Date.now();
         console.log("tiempo:" + tiempoInicio);
         tiempoIntervalo = setInterval(mostrarTiempo, 100);
+        mostrarRecord();
     }
     //.trim elimina espacios al string al comienzo y final, .split divide el string en arrays
     const mapFilas = map.trim().split('\n');
@@ -191,6 +194,23 @@ function juegoGanado()
 {
     console.log('!GAME OVER');
     clearInterval(tiempoIntervalo);
+
+    const recordTime =  localStorage.getItem('record_time');
+    const playerTime = Date.now() - tiempoInicio;
+
+    if(recordTime)
+    {
+        if(recordTime >= playerTime)
+        {
+            localStorage.setItem('record_time', playerTime);
+            pResultado.innerHTML = 'Superaste el RECORD :)';
+        }
+        else
+        {
+            pResultado.innerHTML = "Lo sentimos, No superaste el RECORD :(";
+        }
+    }
+    console.log("Records: " + {recordTime,playerTime});
 }
 //Funcion para mostrar el numero de vidas
 function mostrarVidas()
@@ -203,6 +223,11 @@ function mostrarVidas()
 function mostrarTiempo()
 {
     spanTime.innerHTML = Date.now() - tiempoInicio;
+}
+//Funcion para mostarr el record del juagador
+function mostrarRecord()
+{
+    spanRecord.innerHTML = localStorage.getItem('record_time');
 }
 //Bloque movimiento por teclas y botones html
 //Al pulsar las teclas
