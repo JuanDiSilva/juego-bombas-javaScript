@@ -41,23 +41,34 @@ let enemigoPosicion = [];
 window.addEventListener('load', colocarCanvasTamanio);
 window.addEventListener('resize', colocarCanvasTamanio);
 
+//Funcion para arreglos
+function arregloNumero(n)
+{
+    return Number(n.toFixed(2));
+}
 //Con esta funcion se cambia el tamanio al canvas
 function colocarCanvasTamanio()
 {
     if(window.innerWidth > window.innerHeight)
     {
-        canvasSize = window.innerHeight * 0.8;
+        canvasSize = window.innerHeight * 0.7;
     }
     else
     {
-        canvasSize = window.innerWidth * 0.8;
+        canvasSize = window.innerWidth * 0.7;
     }
+
+    canvasSize= Number(canvasSize.toFixed(0));
+
     //Atribotos de la anchura y altura
     canvas.setAttribute('width',canvasSize)
     canvas.setAttribute('height',canvasSize)
 
     //Se define el bloque para los pixelees de cada emoji, elementos tamaño
     elementosSize = canvasSize / 10;
+
+    jugadorPosicion.x = undefined;
+    jugadorPosicion.y = undefined;
 
     inicioGame();
 }
